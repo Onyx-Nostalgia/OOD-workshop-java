@@ -26,4 +26,11 @@ public class MyRange {
         }
         return -1; // TODO
     }
+
+    public String getResult() {
+        int startNumber = getStart();
+        int endNumber = getEnd();
+        // TODO
+        return "1,2,3,4,5";
+    }
 }

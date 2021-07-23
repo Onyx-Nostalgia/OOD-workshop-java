@@ -36,7 +36,7 @@ public class MyRangeTest {
     }
 
     @Test
-    @DisplayName("[1,5] end with ')' (exclude) return false ")
+    @DisplayName("[1,5) end with ')' (exclude) return false ")
     public void endWithExclude(){
         MyRange myRange = new MyRange("[1,5)");
         boolean result = myRange.isEndWithInclude();
@@ -48,5 +48,12 @@ public class MyRangeTest {
         MyRange myRange = new MyRange("[1,5]");
         int result = myRange.getEnd();
         assertEquals(5, result);
+    }
+
+    @Test
+    public void genarateNumber(){
+        MyRange myRange = new MyRange("[1,5]");
+        String result = myRange.getResult();
+        assertEquals("1,2,3,4,5", result);
     }
 }
