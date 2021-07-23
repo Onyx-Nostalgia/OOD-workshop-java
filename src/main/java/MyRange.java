@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 public class MyRange {
     private final String input;
 
@@ -10,10 +12,11 @@ public class MyRange {
     }
 
     public int getStart() {
+        int number = Integer.parseInt(String.valueOf(this.input.charAt(1)));
         if(this.isStartWithInclude()) {
-            return Integer.parseInt(String.valueOf(this.input.charAt(1)));
+            return number;
         }
-        return -1; // TODO
+        return number +1;
     }
 
     public boolean isEndWithInclude() {
@@ -21,16 +24,18 @@ public class MyRange {
     }
 
     public int getEnd() {
+        int number = Integer.parseInt(String.valueOf(this.input.charAt(3)));
         if(this.isEndWithInclude()) {
-            return Integer.parseInt(String.valueOf(this.input.charAt(3)));
+            return number;
         }
-        return -1; // TODO
+        return number - 1;
     }
 
     public String getResult() {
         int startNumber = getStart();
         int endNumber = getEnd();
-        // TODO
-        return "1,2,3,4,5";
+        String result = String.join(",",
+                IntStream.rangeClosed(startNumber, endNumber).mapToObj(String::valueOf).toArray(String[]::new));
+        return result;
     }
 }

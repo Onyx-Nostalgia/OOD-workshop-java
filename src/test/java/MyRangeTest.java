@@ -51,9 +51,34 @@ public class MyRangeTest {
     }
 
     @Test
-    public void genarateNumber(){
+    @DisplayName("[1,5] return 1,2,3,4,5 ")
+    public void genarateNumberWithAllInclude(){
         MyRange myRange = new MyRange("[1,5]");
         String result = myRange.getResult();
         assertEquals("1,2,3,4,5", result);
+    }
+
+    @Test
+    @DisplayName("(1,5] return 2,3,4,5 ")
+    public void genarateNumberWithStartExclude(){
+        MyRange myRange = new MyRange("(1,5]");
+        String result = myRange.getResult();
+        assertEquals("2,3,4,5", result);
+    }
+
+    @Test
+    @DisplayName("[1,5) return 1,2,3,4 ")
+    public void genarateNumberWithEndExclude(){
+        MyRange myRange = new MyRange("[1,5)");
+        String result = myRange.getResult();
+        assertEquals("1,2,3,4", result);
+    }
+
+    @Test
+    @DisplayName("(1,5) return 2,3,4 ")
+    public void genarateNumberWithAllExclude(){
+        MyRange myRange = new MyRange("(1,5)");
+        String result = myRange.getResult();
+        assertEquals("2,3,4", result);
     }
 }
