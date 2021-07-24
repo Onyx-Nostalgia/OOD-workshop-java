@@ -5,7 +5,9 @@ public class TennisGame1 {
     private int m_score2 = 0;
     private final String player1Name;
     private final String player2Name;
-    public static final int ADVANTAGE_MATCH_POINT = 4;
+    private static final int SCORE_ADVANTAGE_MATCH_POINT = 4;
+    private static final int DIFFERENT_SCORE_WIN_MATCH = 2;
+    private static final int DIFFERENT_SCORE_ADVANTAGE_MATCH = 1;
 
     public TennisGame1(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -30,16 +32,36 @@ public class TennisGame1 {
         // Deuce
         if (isDeuce()) return "Deuce";
 
-        // Normal
-        if (m_score1 < ADVANTAGE_MATCH_POINT && m_score2 < ADVANTAGE_MATCH_POINT)
+        // Advantage
+        if(isAdvantage()) {
+            String playerAdvantage = WhoAdvantage();
+            return "Advantage " + playerAdvantage;
+        }
+
+        // Win
+        if (isWin()) {
+            String playerAdvantage = WhoAdvantage();
+            return "Win for " + playerAdvantage;
+        }
+
         return scoreResults[m_score1] + "-" + scoreResults[m_score2];
+    }
 
-        // Advantage and Win
-        if(differentScore == 1) score.append("Advantage ");
-        else score.append("Win for ");
-        if(m_score1 > m_score2)return score.append(player1Name).toString();
-        return score.append(player2Name).toString();
+    private String WhoAdvantage() {
+        if (m_score1 > m_score2) return player1Name;
+        return player2Name;
+    }
 
+    private boolean isAdvantage(){
+        int differentScore = Math.abs(m_score1 - m_score2);
+        return (m_score1 >= SCORE_ADVANTAGE_MATCH_POINT || m_score2 >= SCORE_ADVANTAGE_MATCH_POINT)
+                && differentScore == DIFFERENT_SCORE_ADVANTAGE_MATCH;
+    }
+
+    private boolean isWin(){
+        int differentScore = Math.abs(m_score1 - m_score2);
+        return (m_score1 >= SCORE_ADVANTAGE_MATCH_POINT || m_score2 >= SCORE_ADVANTAGE_MATCH_POINT)
+                && differentScore >=DIFFERENT_SCORE_WIN_MATCH;
     }
 
     private boolean isDeuce() {
